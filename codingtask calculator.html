@@ -1,0 +1,143 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+        .calculator {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 10px;
+            background-color: rgb(7, 158, 138);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            box-sizing: border-box;
+        }
+        .calculator .icon {
+            font-size: 40px;
+            color: #f9a825;
+            margin-bottom: 10px;
+        }
+        input[type="text"] {
+            width: 100%;
+            height: 60px;
+            font-size: 28px;
+            text-align: right;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #050b0e;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .button-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: -1px;
+        }
+        button {
+            width: 23%; 
+            height: 60px;
+            font-size: 24px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 1px;
+            cursor: pointer;
+            background-color: #f0f0f0;
+            box-sizing: border-box;
+        }
+        button.operator {
+            background-color: #f9a825;
+            color: white;
+        }
+        button.double {
+            width: 48%; 
+        }
+        button:active {
+            background-color: #e0e0e0;
+        }
+        .button-backspace {
+            width: 23%; 
+        }
+       .button-backspace i { 
+           font-size: 20px; 
+         } 
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="icon">
+            <i class="fas fa-calculator"></i>
+        </div>
+        <input type="text" id="display" disabled>
+        <div class="button-row">
+            <button onclick="clearDisplay()">Clear</button>
+            <button onclick="appendToDisplay('x')">x</button>
+            <button onclick="appendToDisplay('%')">%</button>
+            <button onclick="appendToDisplay('+')">+</button>
+        </div>
+        <div class="button-row">
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button onclick="appendToDisplay('-')">-</button>
+        </div>
+        <div class="button-row">
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button onclick="appendToDisplay('*')">*</button>
+        </div>
+        <div class="button-row">
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button onclick="appendToDisplay('/')">/</button>
+        </div>
+        <div class="button-row">
+            <button class="double" onclick="appendToDisplay('0')">0</button>
+            <button class="double" onclick="appendToDisplay('.')">.</button>
+            <button class="operator double" onclick="calculateResult()">=</button>
+            <button class="operator" onclick="appendToDisplay('00')">00</button>
+            <button onclick="appendToDisplay('000')">000</button>
+        </div>
+
+    <script>
+        function appendToDisplay(value) {
+            const display = document.getElementById('display');
+            if (value === '+/-') {
+                display.value = display.value.startsWith('-') ? display.value.slice(1) : '-' + display.value;
+            } else {
+                display.value += value;
+            }
+        }
+
+        function clearDisplay() {
+            document.getElementById('display').value = '';
+        }
+        function backspace() {
+            const display = document.getElementById('display');
+            display.value = display.value.slice(0, -1);
+        }
+        function calculateResult() {
+            const display = document.getElementById('display');
+            try {
+                // Use eval to calculate the result
+                // Be cautious with eval; it's used here for simplicity
+                display.value = eval(display.value);
+            } catch (e) {
+                display.value = 'Error';
+            }
+        }
+    </script>
+</body>
+</html>
